@@ -1,5 +1,6 @@
 from django.test import Client, TestCase
 from django.urls import reverse
+from http import HTTPStatus
 
 
 class StaticURLTests(TestCase):
@@ -17,7 +18,7 @@ class StaticURLTests(TestCase):
         for template, reverse_name in self.templates_url_names.items():
             with self.subTest():
                 response = self.guest_client.get(reverse(reverse_name))
-                self.assertEqual(response.status_code, 200)
+                self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_urls_uses_correct_templates(self):
         """Проверка шаблонов для адресов страниц about."""
@@ -28,4 +29,4 @@ class StaticURLTests(TestCase):
 
     def test_page_404(self):
         response = self.guest_client.get('/xxx/')
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)

@@ -1,6 +1,6 @@
 from django.test import Client, TestCase
 from django.urls import reverse
-
+from http import HTTPStatus
 
 class AboutViewsTests(TestCase):
     @classmethod
@@ -17,7 +17,7 @@ class AboutViewsTests(TestCase):
         for template, reverse_name in self.templates_url_names.items():
             with self.subTest():
                 response = self.guest_client.get(reverse(reverse_name))
-                self.assertEqual(response.status_code, 200)
+                self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_about_page_uses_correct_template(self):
         """При запросе к about: ... применяется шаблон about/ ... .html."""
