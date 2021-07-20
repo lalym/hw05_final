@@ -48,7 +48,6 @@
 
         <!-- Ссылка на редактирование поста для автора -->
         {% if user == post.author %}
-{#            if test is passed, delete: {% if edit %}#}
         <a class="btn btn-sm btn-info"
            href="{% url 'posts:post_edit' post.author.username post.id %}"
            role="button">

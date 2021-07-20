@@ -19,7 +19,7 @@ def page_paginator(request, post_list):
 
 @cache_page(20, key_prefix='index_page')
 def index(request):
-    post_list = Post.objects.all()
+    post_list = Post.objects.select_related('group').all()
     return render(request,
                   'index.html',
                   {'page': page_paginator(request, post_list)}
@@ -52,7 +52,6 @@ def profile(request, username):
     edit = author == request.user
     post_list = author.posts.all()
     post_count = post_list.count()
-    # post_count = author.posts.count()
     context = {'post_count': post_count,
                'author': author,
                'page': page_paginator(request, post_list),

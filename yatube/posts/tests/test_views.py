@@ -8,6 +8,7 @@ from django.core.cache import cache
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase
 from django.urls import reverse
+from http import HTTPStatus
 
 from posts.models import Group, Post, Follow
 
@@ -302,7 +303,8 @@ class TestComments(TestCase):
         """
         response = self.anonymous.get(self.comment_url)
         expected_url = '/auth/login/?next={}'.format(self.comment_url)
-        self.assertRedirects(response, expected_url, status_code=302)
+        self.assertRedirects(response, expected_url,
+                             status_code=HTTPStatus.FOUND)
 
     def test_comment_authorized_only(self):
         """
