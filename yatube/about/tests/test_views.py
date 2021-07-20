@@ -2,6 +2,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 from http import HTTPStatus
 
+
 class AboutViewsTests(TestCase):
     @classmethod
     def setUpClass(cls):
